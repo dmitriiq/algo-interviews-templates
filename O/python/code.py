@@ -49,15 +49,13 @@ def get_max_final_capital(buildings: List[Building], start_capital: int, max_bui
         if len(sortedDict[need_capitals[max_it]]) == 0:
             del sortedDict[need_capitals[max_it]]
             del need_capitals[max_it]
+
         capital += added_cap
-        while it >= 0:
-            if need_capitals[it] <= capital:
-                it -= 1
-            else:
-                it += 1
-                break
-        if it < 0:
-            it = 0
+        it -= 1
+        while it >= 0 and need_capitals[it] <= capital:
+            it -= 1
+        it += 1
+
         max_buildings -= 1
     return capital
 
