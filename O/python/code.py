@@ -1,6 +1,4 @@
 from typing import List
-from sortedcontainers import SortedDict
-from sortedcontainers import SortedList
 
 class Building:
     def __init__(self, need_capital, added_capital) -> None:
@@ -16,12 +14,13 @@ def get_max_final_capital(buildings: List[Building], start_capital: int, max_bui
     sortedDict = dict()
     for b in buildings:
         if not sortedDict.__contains__(b.need_capital):
-            sortedDict[b.need_capital] = SortedList()
-        sortedDict[b.need_capital].add(b.added_capital)
+            sortedDict[b.need_capital] = []
+        sortedDict[b.need_capital].append(b.added_capital)
 
     need_capitals = []
     for c in sortedDict:
         need_capitals.append(c)
+        sortedDict[c].sort()
 
     it = 0
     while it < len(need_capitals):
@@ -32,14 +31,14 @@ def get_max_final_capital(buildings: List[Building], start_capital: int, max_bui
 
     if it == len(need_capitals):
         return capital
-    
+
     while max_buildings > 0:
         it2 = it
         max_it = it
         max_added = sortedDict[need_capitals[it2]][-1]
         # print('max_added', max_added)
         while it2 < len(need_capitals):
-            # print('need_capitals[it2]', need_capitals[it2])#, sortedDict[need_capitals[it2]])
+            print('need_capitals[it2]', need_capitals[it2], sortedDict[need_capitals[it2]])
             if sortedDict[need_capitals[it2]][-1] > max_added:
                 max_added = sortedDict[need_capitals[it2]][-1]
                 max_it = it2
