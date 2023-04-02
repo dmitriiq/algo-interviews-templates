@@ -33,22 +33,29 @@ def get_max_final_capital(buildings: List[Building], start_capital: int, max_bui
         return capital
 
     while max_buildings > 0:
-        it2 = it
-        max_it = it
-        max_added = sortedDict[need_capitals[it2]][-1]
+        it2 = it + 1
+        # max_it = it
+        # max_added = sortedDict[need_capitals[it2]][-1]
         # print('max_added', max_added)
         while it2 < len(need_capitals):
             # print('need_capitals[it2]', need_capitals[it2], sortedDict[need_capitals[it2]])
-            if sortedDict[need_capitals[it2]][-1] > max_added:
-                max_added = sortedDict[need_capitals[it2]][-1]
-                max_it = it2
-            it2 += 1
+            # if sortedDict[need_capitals[it2]][-1] > max_added:
+            #     max_added = sortedDict[need_capitals[it2]][-1]
+            #     max_it = it2
+            # print('it2', it2, sortedDict)
+            sortedDict[need_capitals[it]] += sortedDict[need_capitals[it2]]
+            del sortedDict[need_capitals[it2]]
+            del need_capitals[it2]
+
+            # it2 += 1
             # print('len', len(need_capitals), 'it2', it2)
-        added_cap = max_added
-        del sortedDict[need_capitals[max_it]][-1]
-        if len(sortedDict[need_capitals[max_it]]) == 0:
-            del sortedDict[need_capitals[max_it]]
-            del need_capitals[max_it]
+        sortedDict[need_capitals[it]].sort()
+
+        added_cap = sortedDict[need_capitals[it]][-1]
+        del sortedDict[need_capitals[it]][-1]
+        # if len(sortedDict[need_capitals[it]]) == 0:
+        #     del sortedDict[need_capitals[it]]
+        #     del need_capitals[it]
 
         capital += added_cap
         it -= 1
