@@ -1,0 +1,11 @@
+6
+9
+set 0 3
+set 1 8
+begin_new_era 6000
+get 0 0
+get 1 0
+set 0 9
+begin_new_era 1000000
+get 0 6000
+get 0 0

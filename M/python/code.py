@@ -1,19 +1,22 @@
 class HistoricalArray:
     def __init__(self, size) -> None:
-        # your code goes here
-        pass
+        self.size_ = size
+        self.data = dict()
+        self.current_era_id = 0
+        self.data[self.current_era_id] = dict()
 
     def set(self, index, value) -> None:
-        # your code goes here
-        pass
+        self.data[self.current_era_id][index] = value
 
     def get(self, index, era_id) -> int:
-        # your code goes here
-        pass
+        if index in self.data[era_id]:
+            return self.data[era_id][index]
+        else:
+            return 0
 
     def begin_new_era(self, era_id) -> None:
-        # your code goes here
-        pass
+        self.current_era_id = era_id
+        self.data[self.current_era_id] = dict()
 
 size = int(input())
 q = int(input())

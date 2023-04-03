@@ -1,28 +1,36 @@
 #include <iostream>
 #include <vector>
+#include <map>
+#include <string>
 
 using namespace std;
 
 
 struct HistoricalArray {
     int size;
-    HistoricalArray(int n) : size(n) {
+    int currentEra;
+    map<int, vector<int>> eras;
 
+    HistoricalArray(int n) : size(n), currentEra(0) {
+        // eras.emplace(std::make_pair(0, vector<int>(size, 0)));
+    	eras[currentEra] = vector<int>(size, 0);
     }
     
     void beginNewEra(int eraId) {
-
+        // eras.emplace(std::make_pair(eraId, vector<int>(size, 0)));
+        // currentEra = eraId;
+    	currentEra = eraId;
+    	eras[currentEra] = vector<int>(size, 0);
     }
 
     void set(int index, int value) {
-
+        eras[currentEra][index] = value;
     }
 
     int get(int index, int eraId) {
-        return -1;
+        return eras[eraId][index];
     }
 };
-
 
 int main(int argc, char const *argv[]) {
     int n;

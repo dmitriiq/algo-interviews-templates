@@ -1,0 +1,14 @@
+1
+12
+set 0 1
+set 0 2
+begin_new_era 1000
+set 0 4
+set 0 100
+begin_new_era 666
+set 0 7
+set 0 42
+begin_new_era 424242
+get 0 0
+get 0 666
+get 0 1000
