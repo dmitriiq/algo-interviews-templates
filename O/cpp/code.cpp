@@ -1,5 +1,7 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
+#include <queue>
 
 using namespace std;
 
@@ -15,9 +17,33 @@ struct Building {
 };
 
 
-long long getMaxFinalCapital(const vector<Building>& buildings, int startCapital, int maxNumberOfBuildings) {
+long long getMaxFinalCapital(vector<Building>& buildings, int startCapital, int maxNumberOfBuildings) {
     // your code goes here
-    return 0;
+    long long capital = startCapital;
+
+    std::sort(buildings.begin(), buildings.end(),
+            [](const Building &a, const Building &b) {
+                return a.needCapital < b.needCapital;
+    });
+
+    std::priority_queue<int> added;
+    for (int i = 0; maxNumberOfBuildings > 0;) {
+        // std::cout << "need cap: " << buildings[i].needCapital << '\n';
+        if (i < buildings.size() && buildings[i].needCapital <= capital) {
+            added.push(buildings[i].addedCapital);
+            ++i;
+        } else {
+            if (added.size() > 0) {
+                capital += added.top();
+                added.pop();
+                --maxNumberOfBuildings;
+            } else {
+                break;
+            }
+        }
+    }
+
+    return capital;
 }
 
 
