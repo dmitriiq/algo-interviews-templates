@@ -1,0 +1,10 @@
+type ex1 | python.exe .\python\code.py
+type ex2 | python.exe .\python\code.py
+type ex3 | python.exe .\python\code.py
+type ex4 | python.exe .\python\code.py
+type ex5 | python.exe .\python\code.py
+type ex11 | python.exe .\python\code.py
+type ex12 | python.exe .\python\code.py
+type ex31 | python.exe .\python\code.py
+type ex32 | python.exe .\python\code.py
+type ex33 | python.exe .\python\code.py
