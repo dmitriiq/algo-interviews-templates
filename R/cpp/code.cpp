@@ -5,8 +5,8 @@ using namespace std;
 
 
 bool isPashaWins(int n) {
-    // Your code here
-    return true;
+
+    return n % 2 == 0;
 }
 
 int main() {
