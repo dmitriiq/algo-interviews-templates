@@ -41,17 +41,17 @@ class Node:
         if bit == 0:
             if self.one:
                 # print('get_max_xor 1', self.val)
-                return self.one
+                return self.one, 1
             else:
                 # print('get_max_xor 2', self.val)
-                return self.zero
+                return self.zero, 0
         else:
             if self.zero:
                 # print('get_max_xor 3', self.val)
-                return self.zero
+                return self.zero, 1
             else:
                 # print('get_max_xor 4', self.val)
-                return self.one
+                return self.one, 0
 
     def get_val(self):
         return self.val
@@ -62,7 +62,7 @@ def get_max_xor(numbers: List[int]) -> int:
 
     if len(numbers) < 2:
         return 0
-    
+
     numbers = list(dict.fromkeys(numbers))
 
     i = 0x80000000
@@ -104,12 +104,22 @@ def get_max_xor(numbers: List[int]) -> int:
                 it = tree
 
                 # print(j, len(it[0]), len(it[1]))
+                log(n1)
+                higher = False
                 while j > 0:
                     # print(n1 & j)
-                    it = it.get_max_xor(n1 & j)
+                    it, bit = it.get_max_xor(n1 & j)
+                    if not higher:
+                        if bit == 1 and r & j == 0:
+                            log('higher true')
+                            higher = True
+                        elif bit == 0 and r & j > 1:
+                            log('break')
+                            break
                     j = j >> 1
                 # print('n1', n1, 'it.get_val()', it.get_val(), r, n1 ^ it.get_val())
-                r = max(r, n1 ^ it.get_val())
+                if it.get_val():
+                    r = max(r, n1 ^ it.get_val())
             break
 
         i = i >> 1
