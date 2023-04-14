@@ -11,16 +11,16 @@ class Node:
         self.zero = None
         self.one = None
 
-    def insert(self, node, bit):
+    def insert(self, bit):
         # log('insert, bit=', bit, 'leaf=', leaf)
         # self.leafs.append(leaf)
         if bit == 0:
             if self.zero == None:
-                self.zero = node
+                self.zero = Node()
             return self.zero
         else:
             if self.one == None:
-                self.one = node
+                self.one = Node()
             return self.one
     
     def set_val(self, val):
@@ -94,7 +94,7 @@ def get_max_xor(numbers: List[int]) -> int:
                 j = i >> 1
                 while j > 0:
                     # print('j=', j)
-                    it = it.insert(Node(), j & n2)
+                    it = it.insert(j & n2)
                     j = j >> 1
                 it.set_val(n2)
 
