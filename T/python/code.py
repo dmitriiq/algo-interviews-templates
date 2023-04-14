@@ -65,7 +65,7 @@ def get_max_xor(numbers: List[int]) -> int:
 
     numbers = list(dict.fromkeys(numbers))
 
-    i = 0x80000000
+    i = 0x40000000
     while i > 0:
 
         len1 = 0
