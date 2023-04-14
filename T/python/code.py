@@ -25,12 +25,6 @@ class Node:
     
     def set_val(self, val):
         self.val = val
-
-    def get(self, bit):
-        if bit == 0:
-            return self.zero
-        else:
-            return self.one
         
     def printAll(self, deep=0):
         # print('deep', deep, 'leafs', self.leafs)
@@ -68,6 +62,8 @@ def get_max_xor(numbers: List[int]) -> int:
 
     if len(numbers) < 2:
         return 0
+    
+    numbers = list(dict.fromkeys(numbers))
 
     i = 0x80000000
     while i > 0:
