@@ -71,18 +71,26 @@ def get_max_xor(numbers: List[int]) -> int:
 
     i = 0x80000000
     while i > 0:
-        arr1 = []
-        arr2 = []
+
+        len1 = 0
+        len2 = 0
         for n in numbers:
             if n & i > 0:
-                arr1.append(n)
+                len1 += 1
             else:
-                arr2.append(n)
+                len2 += 1
+
         # print(i, arr1, arr2)
-        if len(arr1) > 0 and len(arr2) > 0:
+        if len1 > 0 and len2 > 0:
 
+            arr1 = []
+            arr2 = []
+            for n in numbers:
+                if n & i > 0:
+                    arr1.append(n)
+                else:
+                    arr2.append(n)
             
-
             tree = Node()
             for n2 in arr2:
                 it = tree
