@@ -13,36 +13,36 @@ public:
         val(0)
     { }
 
-    std::unique_ptr<Node> zero;
-    std::unique_ptr<Node> one;
+    std::shared_ptr<Node> zero;
+    std::shared_ptr<Node> one;
     int val;
 
-    Node* insert(int bit) {
+    std::shared_ptr<Node> insert(int bit) {
         if (bit) {
-            if (one.get() == nullptr) {
-                one = make_unique<Node>();
+            if (one == nullptr) {
+                one = make_shared<Node>();
             }
-            return one.get();
+            return one;
         } else {
-            if (zero.get() == nullptr) {
-                zero = make_unique<Node>();
+            if (zero == nullptr) {
+                zero = make_shared<Node>();
             }
-            return zero.get();
+            return zero;
         }
     }
 
-    Node* itMaxXor(int bit) {
+    std::shared_ptr<Node> itMaxXor(int bit) {
         if (bit) {
-            if (zero.get() != nullptr) {
-                return zero.get();
+            if (zero != nullptr) {
+                return zero;
             } else {
-                return one.get();
+                return one;
             }
         } else {
             if (one.get() != nullptr) {
-                return one.get();
+                return one;
             } else {
-                return zero.get();
+                return zero;
             }
         }
     }
@@ -75,10 +75,10 @@ long long getMaxXOR(const vector<int>& list) {
                 }
             }
 
-            Node tree;
+            std::shared_ptr<Node> tree = std::make_shared<Node>();
             
             for (const auto n : v2) {
-                Node *it = &tree;
+                std::shared_ptr<Node> it = tree;
 
                 for (std::size_t j = i >> 1; j > 0 ; j >>= 1) {
                     it = it->insert(n & j);
@@ -88,7 +88,7 @@ long long getMaxXOR(const vector<int>& list) {
             }
 
             for (const auto n : v1) {
-                Node *it = &tree;
+                std::shared_ptr<Node> it = tree;
 
                 for (std::size_t j = i >> 1; j > 0; j >>= 1) {
                     it = it->itMaxXor(n & j);
