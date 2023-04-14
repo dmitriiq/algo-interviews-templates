@@ -7,13 +7,13 @@ def log(*args):
 class Node:
     def __init__(self):
         self.val = None
-        self.leafs = []
+        # self.leafs = []
         self.zero = None
         self.one = None
 
-    def insert(self, node, bit, leaf):
-        log('insert, bit=', bit, 'leaf=', leaf)
-        self.leafs.append(leaf)
+    def insert(self, node, bit):
+        # log('insert, bit=', bit, 'leaf=', leaf)
+        # self.leafs.append(leaf)
         if bit == 0:
             if self.zero == None:
                 self.zero = node
@@ -33,7 +33,7 @@ class Node:
             return self.one
         
     def printAll(self, deep=0):
-        print('deep', deep, 'leafs', self.leafs)
+        # print('deep', deep, 'leafs', self.leafs)
         if self.zero != None:
             print('zero')
             self.zero.printAll(deep+1)
@@ -98,7 +98,7 @@ def get_max_xor(numbers: List[int]) -> int:
                 j = i >> 1
                 while j > 0:
                     # print('j=', j)
-                    it = it.insert(Node(), j & n2, n2)
+                    it = it.insert(Node(), j & n2)
                     j = j >> 1
                 it.set_val(n2)
 
