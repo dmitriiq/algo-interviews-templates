@@ -1,14 +1,18 @@
 from typing import List
 
+def log(*args):
+    # print(args)
+    pass
+
 class Node:
     def __init__(self):
         self.val = None
         self.leafs = []
         self.zero = None
         self.one = None
-    
+
     def insert(self, node, bit, leaf):
-        # print('insert, bit=', bit, 'leaf=', leaf)
+        log('insert, bit=', bit, 'leaf=', leaf)
         self.leafs.append(leaf)
         if bit == 0:
             if self.zero == None:
@@ -76,6 +80,9 @@ def get_max_xor(numbers: List[int]) -> int:
                 arr2.append(n)
         # print(i, arr1, arr2)
         if len(arr1) > 0 and len(arr2) > 0:
+
+            
+
             tree = Node()
             for n2 in arr2:
                 it = tree
