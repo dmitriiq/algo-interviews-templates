@@ -2,11 +2,11 @@ from typing import List
 
 
 
-def is_correct(str):
+def is_correct(s: str, complete: bool):
     stack = []
 
     # print('str', str)
-    for c in str:
+    for c in s:
         # print('c', c, stack)
         if c == '(':
             if '[' in stack:
@@ -31,7 +31,7 @@ def is_correct(str):
             stack = stack[:-1]
             # print(stack)
 
-    if len(stack) != 0:
+    if complete and len(stack) != 0:
         return False
     
     # print('True', str)
@@ -42,12 +42,14 @@ def add_brace(n: int, s, r):
     braces = ['(', '[', ')', ']']
 
     if n == 0:
-        if is_correct(s):
+        if is_correct(s, True):
             r.append(s)
         return
 
     for b in braces:
-        add_brace(n - 1, s + b, r)
+        sequnces = s + b
+        if is_correct(sequnces, False):
+            add_brace(n - 1, sequnces, r)
 
 
 def generate_sequences(n: int) -> List[str]:
