@@ -5,7 +5,7 @@ def log(*args):
     pass
 
 def update_stack(c, stack):
-    log('c', c, stack)
+    # log('c', c, stack)
     if c == '(':
         if '[' in stack:
             return False
@@ -16,11 +16,11 @@ def update_stack(c, stack):
     elif c == ')':
         if len(stack) == 0:
             return False
-        log('stack[-1]', stack[-1])
+        # log('stack[-1]', stack[-1])
         if stack[-1] != '(':
             return False
         del stack[-1]
-        log('stack', stack)
+        # log('stack', stack)
     elif c == ']':
         if len(stack) == 0:
             return False
@@ -29,22 +29,22 @@ def update_stack(c, stack):
         del stack[-1]
         # log(stack)
 
-    log('update_stack True', stack)
+    # log('update_stack True', stack)
     return True
 
 def is_correct(s):
 
-    log('str', s)
+    # log('str', s)
     stack = []
     for c in s:
         if not update_stack(c, stack):
             return False
 
-    log('stack 1', stack)
+    # log('stack 1', stack)
     if len(stack) != 0:
         return False
 
-    log('True', s)
+    # log('True', s)
     return True
 
 
@@ -60,8 +60,8 @@ def add_brace(n: int, s, r, stack):
     for b in braces:
         sequnces = s + b
         copy_stack = stack.copy()
-        # if update_stack(b, stack):
-        add_brace(n - 1, sequnces, r, stack)
+        if update_stack(b, stack):
+            add_brace(n - 1, sequnces, r, stack)
         stack = copy_stack
 
 
