@@ -1,62 +1,76 @@
 from typing import List
 
+def log(*args):
+    #print(args)
+    pass
 
+def update_stack(c, stack):
+    log('c', c, stack)
+    if c == '(':
+        if '[' in stack:
+            return False
+        stack.append(c)
+    elif c == '[':
+        stack.append(c)
+        # log(stack)
+    elif c == ')':
+        if len(stack) == 0:
+            return False
+        log('stack[-1]', stack[-1])
+        if stack[-1] != '(':
+            return False
+        del stack[-1]
+        log('stack', stack)
+    elif c == ']':
+        if len(stack) == 0:
+            return False
+        if stack[-1] != '[':
+            return False
+        del stack[-1]
+        # log(stack)
 
-def is_correct(s: str, complete: bool):
+    log('update_stack True', stack)
+    return True
+
+def is_correct(s):
+
+    log('str', s)
     stack = []
-
-    # print('str', str)
     for c in s:
-        # print('c', c, stack)
-        if c == '(':
-            if '[' in stack:
-                return False
-            stack.append(c)
-        elif c == '[':
-            stack.append(c)
-            # print(stack)
-        elif c == ')':
-            if len(stack) == 0:
-                return False
-            # print('stack[-1]', stack[-1])
-            if stack[-1] != '(':
-                return False
-            stack = stack[:-1]
-            # print('stack', stack)
-        elif c == ']':
-            if len(stack) == 0:
-                return False
-            if stack[-1] != '[':
-                return False
-            stack = stack[:-1]
-            # print(stack)
+        if not update_stack(c, stack):
+            return False
 
-    if complete and len(stack) != 0:
+    log('stack 1', stack)
+    if len(stack) != 0:
         return False
-    
-    # print('True', str)
+
+    log('True', s)
     return True
 
 
-def add_brace(n: int, s, r):
+def add_brace(n: int, s, r, stack):
     braces = ['(', '[', ')', ']']
 
     if n == 0:
-        if is_correct(s, True):
+        # st = []
+        if is_correct(s):
             r.append(s)
         return
 
     for b in braces:
         sequnces = s + b
-        if is_correct(sequnces, False):
-            add_brace(n - 1, sequnces, r)
+        copy_stack = stack.copy()
+        # if update_stack(b, stack):
+        add_brace(n - 1, sequnces, r, stack)
+        stack = copy_stack
 
 
 def generate_sequences(n: int) -> List[str]:
     result = []
 
-    add_brace(n, '', result)
-    # print(result)
+    # stack = []
+    add_brace(n, '', result, [])
+    # log(result)
 
     return result
 
