@@ -52,8 +52,8 @@ def add_brace(n: int, s, r, stack):
     braces = ['(', '[', ')', ']']
 
     if n == 0:
-        # st = []
-        if is_correct(s):
+        # if is_correct(s):
+        if len(stack) == 0:
             r.append(s)
         return
 
